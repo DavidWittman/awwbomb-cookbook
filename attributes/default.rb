@@ -4,5 +4,6 @@ default[:awwbomb][:port] = 4567
 default[:awwbomb][:ENV] = {
   "CF_USERNAME" => "example",
   "CF_APIKEY" => "35d14efa640bb7f8d0073d3cf3a777ff",
-  "CF_CONTAINER" => "awwbomb"
+  "CF_CONTAINER" => "awwbomb",
+  "RACK_ENV" => "production"
 }
