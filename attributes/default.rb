@@ -1,5 +1,6 @@
 default[:awwbomb][:username] = "aww"
 default[:awwbomb][:home] = "/home/aww"
+default[:awwbomb][:project_home] = "/home/aww/awwbomb"
 default[:awwbomb][:dependencies] = %w{git-core memcached libcurl4-openssl-dev libssl-dev zlib1g-dev build-essential}
 default[:awwbomb][:repo] = "git://github.com/DavidWittman/awwbomb.git"
 default[:awwbomb][:port] = 4567

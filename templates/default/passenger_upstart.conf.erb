@@ -1,0 +1,31 @@
+# awwbomb
+
+description "A webapp which displays pictures of animals"
+author "David Wittman <david@wittman.com>"
+
+start on (filesystem and net-device-up IFACE=lo)
+stop on runlevel [!2345]
+
+respawn
+respawn limit 5 10
+
+expect fork
+
+setuid <%= node[:awwbomb][:username] %>
+chdir <%= "#{node[:awwbomb][:home]}/awwbomb" %>
+
+# The HOME environment variable must be set due to a bug in passenger standalone
+# http://code.google.com/p/phusion-passenger/issues/detail?id=614
+env HOME=<%= node[:awwbomb][:home] %>
+
+<% node[:awwbomb][:ENV].keys.each do |key| -%>
+env <%= "#{key}=#{node[:awwbomb][:ENV][key]}" %>
+<% end -%>
+
+pre-start script
+  # Passenger standalone requires a 'public' directory
+  test -d "${PWD}/public" || mkdir "public"
+end script
+
+# Start
+exec bundle exec passenger start -p <%= node[:awwbomb][:port] %> -d
