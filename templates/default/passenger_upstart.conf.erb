@@ -22,6 +22,9 @@ env HOME=<%= node[:awwbomb][:home] %>
 env <%= "#{key}=#{node[:awwbomb][:ENV][key]}" %>
 <% end -%>
 
+env PATH=/opt/chef/embedded/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+env GEM_PATH=/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/
+
 pre-start script
   # Passenger standalone requires a 'public' directory
   test -d "${PWD}/public" || mkdir "public"
