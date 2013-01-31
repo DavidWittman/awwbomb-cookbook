@@ -5,9 +5,9 @@
 # Copyright 2012, David Wittman
 #
 
-USERNAME = node[:awwbomb][:username]
-HOME = node[:awwbomb][:home]
-PROJECT_HOME = node[:awwbomb][:project_home]
+USERNAME = node["awwbomb"]["username"]
+HOME = node["awwbomb"]["home"]
+PROJECT_HOME = node["awwbomb"]["project_home"]
 
 if node["awwbomb"]["databag"] != "false"
   data = Chef::EncryptedDataBagItem.load(node["awwbomb"]["databag"], node["awwbomb"]["databag_item"])
@@ -22,7 +22,7 @@ execute "apt-get-update" do
   action :nothing
 end.run_action(:run)
 
-node[:awwbomb][:dependencies].each do |pkg|
+node["awwbomb"]["dependencies"].each do |pkg|
   package pkg do
     action :install
   end
@@ -37,7 +37,7 @@ end
 
 # Clone repo
 git PROJECT_HOME do
-  repository node[:awwbomb][:repo]
+  repository node["awwbomb"]["repo"]
   reference "master"
   user USERNAME
   group USERNAME

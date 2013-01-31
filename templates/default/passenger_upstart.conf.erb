@@ -11,15 +11,15 @@ respawn limit 5 10
 
 expect fork
 
-setuid <%= node[:awwbomb][:username] %>
-chdir <%= "#{node[:awwbomb][:project_home]}" %>
+setuid <%= node["awwbomb"]["username"] %>
+chdir <%= "#{node["awwbomb"]["project_home"]}" %>
 
 # The HOME environment variable must be set due to a bug in passenger standalone
 # http://code.google.com/p/phusion-passenger/issues/detail?id=614
-env HOME=<%= node[:awwbomb][:home] %>
+env HOME=<%= node["awwbomb"]["home"] %>
 
-<% node[:awwbomb][:ENV].keys.each do |key| -%>
-env <%= "#{key}=#{node[:awwbomb][:ENV][key]}" %>
+<% node["awwbomb"]["ENV"].keys.each do |key| -%>
+env <%= "#{key}=#{node["awwbomb"]["ENV"][key]}" %>
 <% end -%>
 
 env PATH=/opt/chef/embedded/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -31,4 +31,4 @@ pre-start script
 end script
 
 # Start
-exec bundle exec passenger start -p <%= node[:awwbomb][:port] %> -d
+exec bundle exec passenger start -p <%= node["awwbomb"]["port"] %> -d
