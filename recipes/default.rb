@@ -9,6 +9,13 @@ USERNAME = node[:awwbomb][:username]
 HOME = node[:awwbomb][:home]
 PROJECT_HOME = node[:awwbomb][:project_home]
 
+if node["awwbomb"]["databag"] != "false"
+  data = Chef::EncryptedDataBagItem.load(node["awwbomb"]["databag"], node["awwbomb"]["databag_item"])
+  node.set_unless["awwbomb"]["ENV"]["CF_USERNAME"] = data["awwbomb"]["CF_USERNAME"]
+  node.set_unless["awwbomb"]["ENV"]["CF_APIKEY"] = data["awwbomb"]["CF_APIKEY"]
+  node.set_unless["awwbomb"]["ENV"]["CF_CONTAINER"] = data["awwbomb"]["CF_CONTAINER"]
+end
+
 execute "apt-get-update" do
   command "apt-get update"
   ignore_failure true
