@@ -11,7 +11,6 @@ respawn limit 5 10
 
 expect fork
 
-setuid <%= node[:awwbomb][:username] %>
 chdir <%= "#{node[:awwbomb][:project_home]}" %>
 
 # The HOME environment variable must be set due to a bug in passenger standalone
@@ -31,4 +30,4 @@ pre-start script
 end script
 
 # Start
-exec bundle exec passenger start -p <%= node[:awwbomb][:port] %> -d
+exec bundle exec passenger start -p <%= node[:awwbomb][:port] %> -d --user=<%= node[:awwbomb][:username] %>
