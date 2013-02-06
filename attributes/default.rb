@@ -1,4 +1,5 @@
 default[:awwbomb] = {
+  :sever => "passenger",
   :databag => "false",
   :databag_item => "awwbomb",
   :username => "aww",

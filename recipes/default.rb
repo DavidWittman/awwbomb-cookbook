@@ -46,7 +46,7 @@ git PROJECT_HOME do
 end
 
 include_recipe "awwbomb::bundler"
-include_recipe "awwbomb::passenger"
+include_recipe "awwbomb::#{node['awwbomb']['server']}"
 
 service "awwbomb" do
   action :start
