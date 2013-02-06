@@ -23,9 +23,10 @@ execute "apt-get-update" do
 end.run_action(:run)
 
 node[:awwbomb][:dependencies].each do |pkg|
-  package pkg do
-    action :install
-  end
+  p = package pkg do
+        action :nothing
+      end
+  p.run_action(:install)
 end
 
 user USERNAME do
