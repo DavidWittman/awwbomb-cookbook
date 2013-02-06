@@ -1,5 +1,5 @@
 default[:awwbomb] = {
-  :sever => "passenger",
+  :server => "nginx",
   :databag => "false",
   :databag_item => "awwbomb",
   :username => "aww",
