@@ -1,4 +1,5 @@
 default["awwbomb"] = {
+  "server" => "nginx",
   "databag" => "false",
   "databag_item" => "awwbomb",
   "username" => "aww",

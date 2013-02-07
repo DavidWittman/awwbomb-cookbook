@@ -1,0 +1,7 @@
+server {
+  server_name localhost;
+  location / {
+          proxy_pass http://localhost:<%= node[:awwbomb][:port] %>;
+          proxy_set_header Host $host;
+  }
+}

@@ -1,0 +1,23 @@
+# awwbomb
+
+description "A webapp which displays pictures of animals"
+author "David Wittman <david@wittman.com>"
+
+start on (filesystem and net-device-up IFACE=lo)
+stop on runlevel [!2345]
+
+respawn
+respawn limit 5 10
+
+expect daemon
+
+<% node[:awwbomb][:ENV].keys.each do |key| -%>
+env <%= "#{key}=#{node[:awwbomb][:ENV][key]}" %>
+<% end -%>
+env PATH=/opt/chef/embedded/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+env GEM_PATH=/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/
+
+script
+  chdir <%= "#{node[:awwbomb][:project_home]}" %>
+  exec bundle exec thin start -p <%= node[:awwbomb][:port] %> -R config.ru -d -u <%= node[:awwbomb][:username] %> -g <%= node[:awwbomb][:username] %>
+end script

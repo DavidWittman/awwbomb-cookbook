@@ -23,9 +23,10 @@ execute "apt-get-update" do
 end.run_action(:run)
 
 node["awwbomb"]["dependencies"].each do |pkg|
-  package pkg do
-    action :install
+  p = package pkg do
+    action :nothing
   end
+  p.run_action(:install)
 end
 
 user USERNAME do
@@ -45,7 +46,7 @@ git PROJECT_HOME do
 end
 
 include_recipe "awwbomb::bundler"
-include_recipe "awwbomb::passenger"
+include_recipe "awwbomb::#{node['awwbomb']['server']}"
 
 service "awwbomb" do
   action :start
