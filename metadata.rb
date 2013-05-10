@@ -1,3 +1,4 @@
+name             "awwbomb"
 maintainer       "David Wittman"
 maintainer_email "david@wittman.com"
 license          "WTFPL"
